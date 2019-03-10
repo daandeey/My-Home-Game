@@ -22,7 +22,7 @@ public class CameraFollow : MonoBehaviour
         float rightBoundsWidth = rightBounds.GetComponentInChildren<SpriteRenderer>().bounds.size.x / 2;
 
         levelMinX = leftBounds.position.x + leftBoundsWidth + (camWidth / 2);
-        levelMaxX = rightBounds.position.x + rightBoundsWidth + (camWidth / 2);
+        levelMaxX = rightBounds.position.x - rightBoundsWidth - (camWidth / 2);
     }
 
     // Update is called once per frame
