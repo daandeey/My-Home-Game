@@ -30,6 +30,7 @@ public class Player : MonoBehaviour
     void Update() {
         CheckPlayerInput();
         UpdatePlayerPosition();
+        UpdateAnimationStates();
     }
 
     void UpdatePlayerPosition() {
@@ -65,8 +66,27 @@ public class Player : MonoBehaviour
 
         if (velocity.y <= 0) pos = CheckFloorRays(pos);
 
+        if (velocity.y >= 0) pos = CheckCeilingRays(pos);
+
         transform.localPosition = pos;
         transform.localScale = scale;
+    }
+
+    void UpdateAnimationStates() {
+        if (grounded && !walk) {
+            GetComponent<Animator>().SetBool("isJumping", false);
+            GetComponent<Animator>().SetBool("isRunning", false);
+        }
+
+        if (grounded && walk) {
+            GetComponent<Animator>().SetBool("isJumping", false);
+            GetComponent<Animator>().SetBool("isRunning", true);
+        }
+
+        if (playerstate == PlayerState.jumping) {
+            GetComponent<Animator>().SetBool("isJumping", true);
+            GetComponent<Animator>().SetBool("isRunning", false);
+        }
     }
 
     void CheckPlayerInput() {
@@ -132,6 +152,35 @@ public class Player : MonoBehaviour
 
                 Fall();
             }
+        }
+
+        return pos;
+    }
+
+    Vector3 CheckCeilingRays (Vector3 pos) {
+        
+        Vector2 originLeft = new Vector2 (pos.x - 0.5f + 0.2f, pos.y + 1f);
+        Vector2 originMiddle = new Vector2 (pos.x, pos.y + 1f);
+        Vector2 originRight = new Vector2 (pos.x + 0.5f - 0.2f, pos.y + 1f);
+
+        RaycastHit2D ceilLeft = Physics2D.Raycast (originLeft, Vector2.up, velocity.y * Time.deltaTime, floorMask);
+        RaycastHit2D ceilMiddle = Physics2D.Raycast (originMiddle, Vector2.up, velocity.y * Time.deltaTime, floorMask);
+        RaycastHit2D ceilRight = Physics2D.Raycast (originRight, Vector2.up, velocity.y * Time.deltaTime, floorMask);
+
+        if (ceilLeft.collider != null || ceilMiddle .collider != null || ceilRight.collider != null) {
+
+            RaycastHit2D hitRay = ceilLeft;
+
+            if (ceilLeft) {
+                hitRay = ceilLeft;
+            } else if (ceilMiddle) {
+                hitRay = ceilMiddle;
+            } else if (ceilRight) {
+                hitRay = ceilRight;
+            }
+
+            pos.y = hitRay.collider.bounds.center.y - hitRay.collider.bounds.size.y / 2 - 1;
+            Fall();
         }
 
         return pos;
