@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -26,9 +27,15 @@ public class Player : MonoBehaviour
 
     private bool bounce = false;
 
+    private int score;
+
+    public Text scoreText;
+
     // Start is called before the first frame update
     void Start() {
         //Fall();
+        score = 0;
+        SetScoreText();
     }
 
     // Update is called once per frame
@@ -208,6 +215,11 @@ public class Player : MonoBehaviour
                 hitRay.collider.GetComponent<QuestionBlock>().QuestionBlockBounce();
             }
 
+            if (hitRay.collider.tag == "QuestionBlock") {
+                score = score + 100;
+                SetScoreText();
+            }
+
             pos.y = hitRay.collider.bounds.center.y - hitRay.collider.bounds.size.y / 2 - 1;
             Fall();
         }
@@ -222,5 +234,9 @@ public class Player : MonoBehaviour
 
         bounce = false;
         grounded = false;
+    }
+
+    void SetScoreText () {
+        scoreText.text = "Score: " + score.ToString();
     }
 }
