@@ -57,6 +57,7 @@
      <Compile Include="Assets\Scripts\Castle.cs" />
      <Compile Include="Assets\Scripts\EnemyAI.cs" />
      <Compile Include="Assets\Scripts\Player.cs" />
+     <Compile Include="Assets\Scripts\QuestionBlock.cs" />
      <Compile Include="Assets\Scripts\QuestionBox.cs" />
  <Reference Include="Unity.TextMeshPro.Editor">
  <HintPath>/home/budiman/Documents/Tugas/Semester 6/PBD/Tugas Besar/My-Home-Game/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
