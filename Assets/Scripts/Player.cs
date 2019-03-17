@@ -238,6 +238,7 @@ public class Player : MonoBehaviour
 
     void SetScoreText () {
         scoreText.text = "Score: " + score.ToString();
+        PlayerPrefs.SetInt("Player Score", score);
     }
 
     public int GetScore () {

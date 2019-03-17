@@ -23,6 +23,7 @@ public class Castle : MonoBehaviour {
 
             dbHandler = dbCursor.GetComponent<DatabaseHandler>();
             playerObject = player.GetComponent<Player>();
+            SceneManager.LoadScene("Win");
 
             if (dbHandler != null && playerObject != null) {
                 int score = playerObject.GetScore();
