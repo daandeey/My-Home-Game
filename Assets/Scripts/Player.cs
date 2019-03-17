@@ -134,8 +134,8 @@ public class Player : MonoBehaviour
         RaycastHit2D wallMiddle = Physics2D.Raycast (originMiddle, new Vector2 (direction, 0), velocity.x * Time.deltaTime, wallMask);
         RaycastHit2D wallBottom = Physics2D.Raycast (originBottom, new Vector2 (direction, 0), velocity.x * Time.deltaTime, wallMask);
     
-        if (wallTop.collider != null || wallMiddle.collider != null || wallBottom.collider != null)
-        {
+        if (wallTop.collider != null || wallMiddle.collider != null || wallBottom.collider != null) {
+
             pos.x -= velocity.x * Time.deltaTime * direction;
         }
 
@@ -238,5 +238,9 @@ public class Player : MonoBehaviour
 
     void SetScoreText () {
         scoreText.text = "Score: " + score.ToString();
+    }
+
+    public int GetScore () {
+        return score;
     }
 }
