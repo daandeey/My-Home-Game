@@ -176,8 +176,6 @@ public class Player : MonoBehaviour
 
                 bounce = true;
                 hitRay.collider.GetComponent<EnemyAI>().Crush();
-                score = score + 500;
-                SetScoreText();
             }
 
             playerstate = PlayerState.idle;
