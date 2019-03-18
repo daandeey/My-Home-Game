@@ -65,6 +65,7 @@ public class Login : MonoBehaviour
                 if (res.success)
                 {
                     PlayerPrefs.SetInt("Login", 1);
+                    PlayerPrefs.SetString("Username", username);
                     SceneManager.LoadScene("SampleScene");
                 }
                 else

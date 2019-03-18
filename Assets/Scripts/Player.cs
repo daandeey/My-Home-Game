@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 
+using System.Diagnostics;
+
 public class Player : MonoBehaviour
 {
     public float jumpVelocity;
@@ -31,12 +33,17 @@ public class Player : MonoBehaviour
 
     public Text scoreText;
 
+    public Stopwatch stopwatch = new Stopwatch();
+
+    public long elapsed;
+
     // Start is called before the first frame update
     void Start() {
         //Fall();
         score = 0;
-        Debug.Log(PlayerPrefs.GetInt("Login"));
+        UnityEngine.Debug.Log(PlayerPrefs.GetInt("Login"));
         SetScoreText();
+        stopwatch.Start();
     }
 
     // Update is called once per frame
@@ -169,6 +176,8 @@ public class Player : MonoBehaviour
 
                 bounce = true;
                 hitRay.collider.GetComponent<EnemyAI>().Crush();
+                score = score + 500;
+                SetScoreText();
             }
 
             playerstate = PlayerState.idle;
@@ -244,5 +253,11 @@ public class Player : MonoBehaviour
 
     public int GetScore () {
         return score;
+    }
+
+    public long GetElapsedTime () {
+        stopwatch.Stop();
+        elapsed = stopwatch.ElapsedMilliseconds / 1000;
+        return elapsed;
     }
 }
