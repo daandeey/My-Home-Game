@@ -35,6 +35,7 @@ public class Player : MonoBehaviour
     void Start() {
         //Fall();
         score = 0;
+        Debug.Log(PlayerPrefs.GetInt("Login"));
         SetScoreText();
     }
 
